@@ -1,8 +1,11 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
+﻿<Properties StartupItem="GD.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Generate.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\story_advance.cs">
     <Files>
       <File FileName="Assets\Generate.cs" Line="20" Column="25" />
+      <File FileName="Assets\Scripts\story_advance.cs" Line="24" Column="7" />
+      <File FileName="Assets\Scripts\action_script.cs" Line="16" Column="3" />
+      <File FileName="Assets\Scripts\button_script.cs" Line="18" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
