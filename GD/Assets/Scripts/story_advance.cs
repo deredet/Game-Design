@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class story_advance : MonoBehaviour {
 	public int story_index = 1;
+	private Text[] texts = new Text[5];
 
 	// Use this for initialization
 	void Start () {
+		LoadText ();
 		story_index = 1;
 	}
 	
@@ -16,12 +19,20 @@ public class story_advance : MonoBehaviour {
 		for (int i = 1; i < story_index; i++) {
 			GameObject component = GetObject (i);
 			if (component != null) {
-				SpriteRenderer sr = component.GetComponent (typeof(SpriteRenderer)) as SpriteRenderer;
-				Color c = sr.color;
+				Image im = component.GetComponent<Image>();
+				Color c = im.color;
 				c.a = 0;
 				c[3] = 0;
-				sr.color = c;
+				im.color = c;
 				//Debug.LogFormat (string.Format ("{0}: {1}",sr.ToString (), c.ToString ()));
+			}
+		}
+
+		for (int i = 1; i < texts.Length; i++) {
+			if (i == story_index) {
+				texts[i].enabled = true;
+			} else {
+				texts[i].enabled = false;
 			}
 		}
 	}
@@ -32,6 +43,12 @@ public class story_advance : MonoBehaviour {
 
 	private GameObject GetObject(int index) {
 		return GameObject.Find(string.Format("story{0}",index));
+	}
+
+	private void LoadText() {
+		for (int i = 1; i < texts.Length; i++) {
+			texts[i] = GameObject.Find(string.Format("Text{0}",i)).GetComponent<Text>();
+		}
 	}
 
 	public void buttonClick () {
