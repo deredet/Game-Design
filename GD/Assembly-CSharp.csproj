@@ -53,6 +53,8 @@
      <Compile Include="Assets\Scripts\player_move.cs" />
      <Compile Include="Assets\Scripts\store.cs" />
      <Compile Include="Assets\Scripts\story_advance.cs" />
+     <Compile Include="Assets\bus_store.cs" />
+     <Compile Include="Assets\reset.cs" />
      <Compile Include="Assets\store_selection.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

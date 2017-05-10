@@ -33,22 +33,31 @@ public class store : MonoBehaviour {
 
 	private bool[] isLocked;
 
+	int bool2int(bool b) {
+		if (b)
+			return 1;
+		else
+			return 0;
+	}
+
+	bool int2bool(int i) {
+		return (i != 0);
+	}
 
 	// Use this for initialization
 	void Start () {
-		pos = 0;
-		eq = 0;
-		PlayerPrefs.SetInt ("Coins", 400);
-		coins = PlayerPrefs.GetInt ("Coins");
+		
+		eq = PlayerPrefs.HasKey("Equipped") ? PlayerPrefs.GetInt("Equipped") : 0;
+		pos = eq;
+		coins = PlayerPrefs.HasKey("Coins") ? PlayerPrefs.GetInt ("Coins") : 2000;
 		charMid = GameObject.Find("charsMid").GetComponent<Image>();
 		charLeft = GameObject.Find("charsLeft").GetComponent<Image>();
 		charRight = GameObject.Find("charsRight").GetComponent<Image>();
 		charLocked.enabled = false;
 		isLocked = new bool[chars.Length];
 		isLocked [0] = false;
-		isLocked [1] = false;
-		for (int i = 2; i < chars.Length; i++) {
-			isLocked [i] = true;
+		for (int i = 1; i < chars.Length; i++) {
+			isLocked [i] = PlayerPrefs.HasKey("Chars" + i) ? int2bool(PlayerPrefs.GetInt("Chars" + i)) : true;
 		}
 	}
 	
@@ -120,6 +129,7 @@ public class store : MonoBehaviour {
 
 	public void equipPressed() {
 		eq = pos;
+		PlayerPrefs.SetInt ("Equipped", eq);
 	}
 
 	public void buyPressed() {
@@ -129,6 +139,9 @@ public class store : MonoBehaviour {
 			PlayerPrefs.SetInt ("Coins", coins);
 			PlayerPrefs.Save ();
 			isLocked [pos] = false;
+			PlayerPrefs.SetInt ("Chars" + pos, bool2int(false));
+			eq = pos;
+			PlayerPrefs.SetInt ("Equipped", eq);
 		}
 	}
 }
