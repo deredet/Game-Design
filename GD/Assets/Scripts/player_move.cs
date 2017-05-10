@@ -14,8 +14,11 @@ public class player_move : MonoBehaviour {
 	public float maxSpeed = 2;
 	public float timeDamage = 50f;
 	public float maxTime = 100f;
+	public GameObject popupfail;
+	public GameObject popupwin;
+	public GameObject spawner;
 
-
+	private float successTime = 0f;
 	private GameObject tGO;
 	private float curTime = 0f;
 	private int score = 0;
@@ -34,13 +37,20 @@ public class player_move : MonoBehaviour {
 			if (r2D.velocity.magnitude > maxSpeed)
 				r2D.velocity = r2D.velocity.normalized * maxSpeed;
 			curTime -= Time.deltaTime;
+			successTime += Time.deltaTime;
 			timer.fillAmount = curTime / maxTime;
 			tScore.text = "Score: " + score;
 			if (curTime <= 0) {
 				alive = false;
 			}
-		}else
+		} else {
 			r2D.velocity = r2D.velocity.normalized * 0;
+			if (successTime >= 10f)
+				popupwin.SetActive (true);
+			else
+				popupfail.SetActive (true);
+			spawner.SetActive (false);
+		}
 	}
 
 	void OnTriggerEnter2D (Collider2D other){

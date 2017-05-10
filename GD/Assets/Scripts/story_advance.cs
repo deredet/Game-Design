@@ -24,7 +24,6 @@ public class story_advance : MonoBehaviour {
 				c.a = 0;
 				c[3] = 0;
 				im.color = c;
-				//Debug.LogFormat (string.Format ("{0}: {1}",sr.ToString (), c.ToString ()));
 			}
 		}
 
