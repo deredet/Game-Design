@@ -45,6 +45,7 @@ public class player_move : MonoBehaviour {
 			}
 		} else {
 			r2D.velocity = r2D.velocity.normalized * 0;
+
 			if (successTime >= 10f)
 				popupwin.SetActive (true);
 			else

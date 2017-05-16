@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Generate : MonoBehaviour {
-	public float startTime = 1f;
-	public float repeatTime = 1f;
+	public float startTime = 0.1f;
+	public float repeatTime = 0.1f;
 	public GameObject[] gObject;
 	// Use this for initialization
 	void Start () {
