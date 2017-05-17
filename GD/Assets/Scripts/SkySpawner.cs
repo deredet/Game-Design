@@ -14,7 +14,7 @@ public class SkySpawner : MonoBehaviour {
 		last = transform.position;
 		last.x = -100;
 		int i = 1;
-		while(i<10) {
+		while(i<15) {
 			Instantiate (road [0], last, transform.rotation);
 			last.x = last.x + skyLength;
 			i++;

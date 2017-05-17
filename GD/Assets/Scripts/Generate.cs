@@ -3,21 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Generate : MonoBehaviour {
-	public float startTime = 0.1f;
-	public float repeatTime = 0.1f;
+	float lastTime;
+	float interval = 0;
+	bool isRandomed = false;
 	public GameObject[] gObject;
+
+	private bool isReset = false;
 	// Use this for initialization
 	void Start () {
-		InvokeRepeating ("CreateGameObject", startTime, repeatTime);	
+		lastTime = Time.fixedTime;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
-
-	void CreateGameObject(){
-		int rand = Random.Range (0, gObject.Length);
-		Instantiate (gObject[rand],transform.position,transform.rotation);
+		if (GameObject.Find ("Player Sprite").GetComponent<player_move> ().alive) {
+			if (!isRandomed) {
+				interval = Random.Range (4f, 7f);
+				isRandomed = true;
+			} else if(Time.fixedTime - lastTime >= interval){
+				int rand = Random.Range (0, gObject.Length);
+				Instantiate (gObject[rand],transform.position,transform.rotation);
+				lastTime = Time.fixedTime;
+				isRandomed = false;
+			}
+		}
 	}
 }

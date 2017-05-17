@@ -9,7 +9,7 @@ public class store : MonoBehaviour {
 	public Image[] chars;
 	private int pos;
 	private int eq;
-	private int coins;
+	private int specloots;
 	public Image charLocked;
 
 	public Text title;
@@ -26,6 +26,7 @@ public class store : MonoBehaviour {
 	public string[] descs;
 	public string[] outfits;
 	public int[] prices;
+	public float[] multipliers;
 
 	private Image charMid;
 	private Image charLeft;
@@ -49,7 +50,7 @@ public class store : MonoBehaviour {
 		
 		eq = PlayerPrefs.HasKey("Equipped") ? PlayerPrefs.GetInt("Equipped") : 0;
 		pos = eq;
-		coins = PlayerPrefs.HasKey("Coins") ? PlayerPrefs.GetInt ("Coins") : 2000;
+		specloots = PlayerPrefs.HasKey("Special") ? PlayerPrefs.GetInt ("Special") : 0;
 		charMid = GameObject.Find("charsMid").GetComponent<Image>();
 		charLeft = GameObject.Find("charsLeft").GetComponent<Image>();
 		charRight = GameObject.Find("charsRight").GetComponent<Image>();
@@ -68,7 +69,7 @@ public class store : MonoBehaviour {
 		charLocked.enabled = isLocked [pos];
 		charMid.color = isLocked[pos] ? new Color(0.5f, 0.5f, 0.5f, 1f) : new Color(1f, 1f, 1f, 1f);
 			
-		coinText.text = coins.ToString();
+		coinText.text = specloots.ToString();
 		if (pos - 1 >= 0) {
 			charLeft.sprite = chars [pos - 1].sprite;
 			charLeft.enabled = true;
@@ -93,11 +94,11 @@ public class store : MonoBehaviour {
 			desc.alignment = TextAnchor.UpperLeft;
 		} else {
 			title.text = "";
-			desc.text = "\n" + prices[pos] + " coins";
+			desc.text = "\n" + prices[pos] + " special loots";
 			desc.color = new Color((float)225/255, (float)144/255, (float)45/255, 1f);
 			desc.alignment = TextAnchor.UpperCenter;
 		}
-		outfit.text = outfits [pos];
+		outfit.text = outfits [pos] + "\n(Score x" + multipliers[pos] + ")";
 		// do equip + char status
 		equipStatus = isLocked[pos] ? (2) : ((eq == pos) ? 1 : 0);
 		for (int i = 0; i < equipStatuses.Length; i++) {
@@ -130,13 +131,15 @@ public class store : MonoBehaviour {
 	public void equipPressed() {
 		eq = pos;
 		PlayerPrefs.SetInt ("Equipped", eq);
+		PlayerPrefs.SetFloat ("Multiplier", multipliers[eq]);
 	}
 
 	public void buyPressed() {
 		// if duit cukup
-		if (coins >= prices [pos]) {
-			coins -= prices [pos];
-			PlayerPrefs.SetInt ("Coins", coins);
+		if (specloots >= prices [pos]) {
+			specloots -= prices [pos];
+			PlayerPrefs.SetInt ("Special", specloots);
+			PlayerPrefs.SetFloat ("Multiplier", multipliers[pos]);
 			PlayerPrefs.Save ();
 			isLocked [pos] = false;
 			PlayerPrefs.SetInt ("Chars" + pos, bool2int(false));
