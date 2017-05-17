@@ -7,7 +7,8 @@ public class Generate : MonoBehaviour {
 	float interval = 0;
 	bool isRandomed = false;
 	public GameObject[] gObject;
-
+	public bool test = false;
+	public int n;
 	private bool isReset = false;
 	// Use this for initialization
 	void Start () {
@@ -22,6 +23,8 @@ public class Generate : MonoBehaviour {
 				isRandomed = true;
 			} else if(Time.fixedTime - lastTime >= interval){
 				int rand = Random.Range (0, gObject.Length);
+				if (test)
+					rand = n;
 				Instantiate (gObject[rand],transform.position,transform.rotation);
 				lastTime = Time.fixedTime;
 				isRandomed = false;

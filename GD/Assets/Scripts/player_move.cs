@@ -22,6 +22,7 @@ public class player_move : MonoBehaviour {
 	public GameObject popupfail;
 	public GameObject popupwin;
 	public GameObject spawner;
+	public bool isPaused = false;
 
 	private float initPos = 0f;
 	private GameObject tGO;
@@ -118,7 +119,8 @@ public class player_move : MonoBehaviour {
 		if (grounded) {
 			grounded = false;
 			r2D.AddForce (Vector2.up * jumpPower, ForceMode2D.Impulse);
-			r2D.velocity = r2D.velocity;
+			r2D.AddForce (Vector2.right * moveSpeed, ForceMode2D.Impulse);
+
 		}
 	}
 
@@ -168,5 +170,15 @@ public class player_move : MonoBehaviour {
 		int latestSpecloots = PlayerPrefs.HasKey("Special") ? PlayerPrefs.GetInt ("Special") : 0;
 		latestSpecloots += num;
 		PlayerPrefs.SetInt ("Special", latestSpecloots);
+	}
+
+	public void pause(){
+		if (isPaused) {
+			Time.timeScale = 1;
+			isPaused = false;
+		} else {
+			Time.timeScale = 0;
+			isPaused = true;
+		}
 	}
 }
