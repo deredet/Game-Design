@@ -71,6 +71,7 @@
      <Compile Include="Assets\scene.cs" />
      <Compile Include="Assets\scrolls.cs" />
      <Compile Include="Assets\store_selection.cs" />
+     <None Include="Assets\audio source.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

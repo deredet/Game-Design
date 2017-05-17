@@ -36,7 +36,7 @@ public class player_move : MonoBehaviour {
 	private float multiplier;
 	private Rigidbody2D r2D;
 	private Animator anim;
-
+	private AudioSource[] sounds;
 	private int timeDecrease;
 
 	// Use this for initialization
@@ -49,6 +49,7 @@ public class player_move : MonoBehaviour {
 		anim = GetComponent<Animator> ();
 		multiplier = PlayerPrefs.HasKey("Multiplier") ? PlayerPrefs.GetFloat ("Multiplier") : 1;
 		initPos = transform.position.x;
+		sounds = GetComponents<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -120,7 +121,7 @@ public class player_move : MonoBehaviour {
 			grounded = false;
 			r2D.AddForce (Vector2.up * jumpPower, ForceMode2D.Impulse);
 			r2D.AddForce (Vector2.right * moveSpeed, ForceMode2D.Impulse);
-
+			sounds [0].Play();
 		}
 	}
 
@@ -132,6 +133,7 @@ public class player_move : MonoBehaviour {
 			Destroy (tGO);
 			increaseTimer (timeDamage);
 			tempScore += 50 * multiplier;
+			sounds [1].Play ();
 		}
 	}
 	public void decreaseTimer(float num){
@@ -176,9 +178,11 @@ public class player_move : MonoBehaviour {
 		if (isPaused) {
 			Time.timeScale = 1;
 			isPaused = false;
+			sounds [2].Play ();
 		} else {
 			Time.timeScale = 0;
 			isPaused = true;
+			sounds [2].Play ();
 		}
 	}
 }
