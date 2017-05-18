@@ -9,9 +9,11 @@ public class story_advance : MonoBehaviour {
 	public GameObject[] text_object;
 	private int story_index = 0;
 	private bool isReset = false;
+	private AudioSource aSource;
 
 	// Use this for initialization
 	void Start () {
+		aSource = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -41,14 +43,21 @@ public class story_advance : MonoBehaviour {
 	}
 
 	public void buttonClick () {
+		aSource.Play ();
 		if (story_index < 2) {
 			story_index++;
 		} else {
+			StartCoroutine (delay ());
 			SceneManager.LoadScene ("main_menu", LoadSceneMode.Single);
 		}
 	}
 
+
+	private IEnumerator delay(){
+		yield return new WaitForSeconds(aSource.clip.length+0.5f);
+	}
 	public void reset () {
+		aSource.Play ();
 		isReset = true;
 	}
 }

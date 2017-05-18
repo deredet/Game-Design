@@ -1,18 +1,22 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\player_move.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\backAndReset.cs">
     <Files>
-      <File FileName="Assets\Scripts\story_advance.cs" Line="1" Column="1" />
-      <File FileName="Assets\bus_store.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\player_move.cs" Line="122" Column="64" />
-      <File FileName="Assets\Scripts\Generate.cs" Line="20" Column="78" />
+      <File FileName="Assets\Scripts\story_advance.cs" Line="22" Column="5" />
+      <File FileName="Assets\bus_store.cs" Line="3" Column="19" />
+      <File FileName="Assets\Scripts\player_move.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Generate.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\TreeSpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Obstacle.cs" Line="22" Column="25" />
-      <File FileName="Assets\human_obstacle.cs" Line="26" Column="3" />
-      <File FileName="Assets\non_exploding_obstacle.cs" Line="18" Column="48" />
+      <File FileName="Assets\Obstacle.cs" Line="1" Column="1" />
+      <File FileName="Assets\human_obstacle.cs" Line="1" Column="1" />
+      <File FileName="Assets\non_exploding_obstacle.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\BushSpawner.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\scroll.cs" Line="15" Column="18" />
-      <File FileName="Assets\scrolls.cs" Line="16" Column="147" />
+      <File FileName="Assets\Scripts\scroll.cs" Line="1" Column="1" />
+      <File FileName="Assets\scrolls.cs" Line="1" Column="1" />
+      <File FileName="Assets\audio source.txt" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\button_script.cs" Line="1" Column="1" />
+      <File FileName="Assets\backAndReset.cs" Line="5" Column="1" />
+      <File FileName="Assets\Scripts\store.cs" Line="154" Column="58" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

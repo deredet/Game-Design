@@ -21,8 +21,10 @@ public class player_move : MonoBehaviour {
 	public float maxTime;
 	public GameObject popupfail;
 	public GameObject popupwin;
+	public GameObject popuppause;
 	public GameObject spawner;
 	public bool isPaused = false;
+	public float maxJumpDistance = 40;
 
 	private float initPos = 0f;
 	private GameObject tGO;
@@ -38,9 +40,11 @@ public class player_move : MonoBehaviour {
 	private Animator anim;
 	private AudioSource[] sounds;
 	private int timeDecrease;
+	private Transform init;
 
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 1;
 		maxSpeed = maxSpeed * (3 + (PlayerPrefs.HasKey("Wheels") ? PlayerPrefs.GetInt("Wheels") : 0))/3;
 		timeDamage = timeDamage / ((PlayerPrefs.HasKey("Buses") ? PlayerPrefs.GetInt("Buses") : 0) + 1);
 		timeDecrease = 4 / ((PlayerPrefs.HasKey("Fuels") ? PlayerPrefs.GetInt("Fuels") : 0) + 1);
@@ -87,7 +91,11 @@ public class player_move : MonoBehaviour {
 			float distanceScore = realDistance * 10 * multiplier;
 			realScore = (int) (tempScore + distanceScore);
 			tRealScore.text = "Score: " + realScore +" (x" + multiplier + ")";
+			if (transform.position.y > maxJumpDistance) {
+				transform.position = new Vector3 (transform.position.x, maxJumpDistance, transform.position.z);
+				r2D.AddForce (Vector2.down * 10, ForceMode2D.Impulse);
 
+			}
 			if (curTime <= 0) {
 				alive = false;
 			}
@@ -118,9 +126,10 @@ public class player_move : MonoBehaviour {
 	}
 	public void Jump(){
 		if (grounded) {
+			init = transform;
 			grounded = false;
 			r2D.AddForce (Vector2.up * jumpPower, ForceMode2D.Impulse);
-			r2D.AddForce (Vector2.right * moveSpeed, ForceMode2D.Impulse);
+			r2D.AddForce (Vector2.right * 15, ForceMode2D.Impulse);
 			sounds [0].Play();
 		}
 	}
@@ -179,10 +188,12 @@ public class player_move : MonoBehaviour {
 			Time.timeScale = 1;
 			isPaused = false;
 			sounds [2].Play ();
+			popuppause.SetActive(false);
 		} else {
 			Time.timeScale = 0;
 			isPaused = true;
 			sounds [2].Play ();
+			popuppause.SetActive(true);
 		}
 	}
 }

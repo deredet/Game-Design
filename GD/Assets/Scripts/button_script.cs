@@ -23,6 +23,6 @@ public class button_script : MonoBehaviour {
 	}
 
 	private IEnumerator delay(){
-		yield return new WaitForSeconds (click.clip.length+0.2f);
+		yield return new WaitForSeconds (click.clip.length+0.5f);
 	}
 }

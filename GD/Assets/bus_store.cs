@@ -10,6 +10,7 @@ public class bus_store : MonoBehaviour {
 	private int starWheel;
 	private int starBus;
 	private int starFuel;
+	private AudioSource aSource;
 	public int[] priceBus;
 	public int[] priceWheel;
 	public int[] priceFuel;
@@ -41,7 +42,7 @@ public class bus_store : MonoBehaviour {
 		starWheel = PlayerPrefs.HasKey("Wheels") ? PlayerPrefs.GetInt("Wheels") : 0;
 		starBus = PlayerPrefs.HasKey("Buses") ? PlayerPrefs.GetInt("Buses") : 0;
 		starFuel = PlayerPrefs.HasKey("Fuels") ? PlayerPrefs.GetInt("Fuels") : 0;
-
+		aSource = GetComponent<AudioSource> ();
 	}
 	
 	// Update is called once per frame
@@ -77,13 +78,17 @@ public class bus_store : MonoBehaviour {
 		PlayerPrefs.SetInt ("Coins", coins);
 		PlayerPrefs.SetInt ("Wheels", starWheel);
 		PlayerPrefs.SetInt ("Buses", starBus);
-		PlayerPrefs.SetInt ("Fuels", starFuel);		SceneManager.LoadScene ("store_selection", LoadSceneMode.Single);
+		PlayerPrefs.SetInt ("Fuels", starFuel);		
+		aSource.Play ();
+		StartCoroutine (delay ());
+		SceneManager.LoadScene ("store_selection", LoadSceneMode.Single);
 	}
 
 	public void upgradePressed(int n) {
 		switch (n) {
 		case 0:
 			if (coins >= priceWheel[starWheel]) {
+				aSource.Play ();
 				coins -= priceWheel[starWheel];
 				starWheel++;
 				starWheel = Mathf.Min (starWheel, 3);
@@ -91,6 +96,7 @@ public class bus_store : MonoBehaviour {
 			break;
 		case 1:
 			if (coins >= priceBus[starBus]) {
+				aSource.Play ();
 				coins -= priceBus[starBus];
 				starBus++;
 				starBus = Mathf.Min (starBus, 3);
@@ -98,11 +104,15 @@ public class bus_store : MonoBehaviour {
 			break;
 		case 2:
 			if (coins >= priceFuel[starFuel]) {
+				aSource.Play ();
 				coins -= priceFuel[starFuel];
 				starFuel++;
 				starFuel = Mathf.Min (starFuel, 3);
 			}
 			break;
 		}
+	}
+	private IEnumerator delay(){
+		yield return new WaitForSeconds (aSource.clip.length + 0.5f);
 	}
 }

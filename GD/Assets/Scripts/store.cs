@@ -10,6 +10,8 @@ public class store : MonoBehaviour {
 	private int pos;
 	private int eq;
 	private int specloots;
+
+	private AudioSource aSource;
 	public Image charLocked;
 
 	public Text title;
@@ -60,6 +62,8 @@ public class store : MonoBehaviour {
 		for (int i = 1; i < chars.Length; i++) {
 			isLocked [i] = PlayerPrefs.HasKey("Chars" + i) ? int2bool(PlayerPrefs.GetInt("Chars" + i)) : true;
 		}
+		aSource = GetComponent<AudioSource> ();
+
 	}
 	
 	// Update is called once per frame
@@ -117,17 +121,24 @@ public class store : MonoBehaviour {
 	}
 
 	public void leftPressed() {
+		aSource.Play ();
 		pos = (pos > 0) ? pos-1 : 0;
 	}
 
 	public void rightPressed() {
+		aSource.Play ();
 		pos = (pos < chars.Length-1) ? pos+1 : chars.Length-1;
 	}
 
 	public void backPressed() {
+		aSource.Play ();
+		StartCoroutine (delay ());
 		SceneManager.LoadScene ("store_selection", LoadSceneMode.Single);
 	}
 
+	private IEnumerator delay(){
+		yield return new WaitForSeconds (aSource.clip.length + 0.5f);
+	}
 	public void equipPressed() {
 		eq = pos;
 		PlayerPrefs.SetInt ("Equipped", eq);
@@ -137,10 +148,10 @@ public class store : MonoBehaviour {
 	public void buyPressed() {
 		// if duit cukup
 		if (specloots >= prices [pos]) {
+			aSource.Play ();
 			specloots -= prices [pos];
 			PlayerPrefs.SetInt ("Special", specloots);
 			PlayerPrefs.SetFloat ("Multiplier", multipliers[pos]);
-			PlayerPrefs.Save ();
 			isLocked [pos] = false;
 			PlayerPrefs.SetInt ("Chars" + pos, bool2int(false));
 			eq = pos;
